@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machines</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='machine.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+    function fetchMachineDetails() {
+    fetch('{{ url_for("get_machine_details") }}')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data, "data");
+            if (data.error) {
+                console.error('Error fetching machine details:', data.error);
+                return;
+            }
+            const tableBody = document.getElementById('machine-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            // Loop through the data and append rows to the table
+            data.data.forEach(machine => {
+                const row = `
+                    <tr>
+                        <td>${machine['plant_name']}</td>
+                        <td>${machine['machine_name']}</td>
+                        <td>${machine['machine_model']}</td>
+                        <td>${machine['plc_model']}</td>
+                        <td>${machine['type_of_insulation']}</td>
+                        <td>${machine['type_of_conductor']}</td>
+                        <td>${machine['Current_status']}</td>
+                    </tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            // Display the modal when the data is fetched
+            document.getElementById('machine-modal').style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching machine details:', error));
+}
+
+function closeMachineModal() {
+    document.getElementById('machine-modal').style.display = 'none';
+}
+function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown-menu');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        }
+    
+        // Optional: Close the dropdown when clicking outside of it
+        window.addEventListener('click', function (e) {
+            const dropdown = document.getElementById('dropdown-menu');
+            const button = document.querySelector('.dropdown-btn');
+            if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="support-number">
+            <span>&#128222;</span> Tech Support Number: +91 8588870242
+        </div>
+        
+        <div class="username">
+            {% if session.get('username') %}
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    {{ session['username'] }} <span class="arrow">&#9660;</span>
+                </button>
+                <div class="dropdown-content" id="dropdown-menu">
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        
+        
+        
+    </div>
+    
+    
+    
+    
+    <div class="sidebar">
+       <div class="logo">
+
+        <a href="{{ url_for('home') }}">
+            <img src="https://media.licdn.com/dms/image/v2/C560BAQHs471rMnnh1w/company-logo_200_200/company-logo_200_200/0/1630647941955/sseltd_logo?e=2147483647&v=beta&t=-pjLExeOAb9mot-c7W-4cd4OpBriA7gqLBs8svfNrn4" alt="Logo" class="logo-image">
+        </a>
+   
+       </div>
+        
+          
+        <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+        <a href="{{ url_for('machines') }}"><i class="fas fa-cogs"></i> Machines</a>
+        <a href="{{ url_for('control_panel') }}"><i class="fas fa-tools"></i> Control Panel</a>
+    </div>
+    
+    <div class="content">
+        <!-- Dashboard Cards -->
+        <div class="dashboard">
+            <div class="card total-machines" onclick="fetchMachineDetails()">
+                <i class="fas fa-server"></i>
+                <h2>Total Machines</h2>
+                <p>{{ metrics.total_machines }}</p>
+            </div>
+            <div class="card started-machines">
+                <i class="fas fa-play-circle"></i>
+                <h2>Machines Started</h2>
+                <p>{{ metrics.machines_started }}</p>
+            </div>
+            <div class="card stopped-machines">
+                <i class="fas fa-stop-circle"></i>
+                <h2>Machines Stopped</h2>
+                <p>{{ metrics.machines_stopped }}</p>
+            </div>
+            <div class="card under-maintenance">
+                <i class="fas fa-tools"></i>
+                <h2>Job Failures</h2>
+                <p>{{ metrics.job_failures }}</p>
+            </div>
+        </div>
+
+        <!-- Modal for Machine Details -->
+        <div id="machine-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeMachineModal()">&times;</span>
+                <h2>Machine Details</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Plant Name</th>
+                                <th>Machine Name</th>
+                                <th>Machine Model</th>
+                                <th>PLC Model</th>
+                                <th>Type of Insulation</th>
+                                <th>Type of Conductor</th>
+                                <th>Current Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="machine-table-body">
+                            <!-- Data will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</body>
+</html>

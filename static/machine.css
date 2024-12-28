@@ -1,0 +1,311 @@
+/* CSS File: style.css */
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    
+
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-repeat: no-repeat;
+    align-items: center;
+    background-color: #96de52; /* Solid color background */
+    left: 200px;
+    /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-VnmH-Px3HjyBtJLXpO0uWmVW3wjWDjSzA&s"); */
+    padding: 10px 20px;
+    position: fixed; /* Make the navbar fixed */
+    top: 0;
+    background-size: cover;
+    width: 85%;
+    z-index: 1000; /* Ensure it stays on top */
+    height: 60px; /* Define height for consistent spacing */
+}
+
+.logo{
+background-color: lightgray;
+}
+
+
+.logo-image {
+height: 45px;
+width:120px;
+border-radius: 6px;
+}
+
+.nav-links {
+font-size: 16px;
+}
+
+.admin-link {
+cursor: pointer;
+font-weight: bold;
+color: #fff;
+}
+
+.popup {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.hidden {
+display: none;
+}
+
+/* Sidebar Styles */
+.sidebar {
+width: 200px;
+height: 100vh;
+/* background-color: rgba(228, 241, 246, 0.99); Light white background */
+background-color: white;
+color: black; /* Change text color to black for better contrast */
+position: fixed;
+ /* Offset below the fixed navbar */
+left: 0;
+top:0;
+display: flex;
+flex-direction: column;
+
+box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for separation */
+}
+
+.sidebar a {
+text-decoration: none;
+color: black;
+padding: 15px 20px;
+display: block;
+font-size: 16px;
+transition: background-color 0.3s ease;
+border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a:hover {
+background-color: #eef1f4;
+}
+
+.sidebar a i {
+margin-right: 10px;
+}
+
+
+
+.username  {
+    margin: 0;
+    background-color: grey;
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+    margin-right: 20px;
+    border-radius: 8px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    padding:6px;
+}
+
+
+
+.dropdown-btn {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    padding: 5px 10px;
+}
+
+/* Dropdown menu styles */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* Position below the button */
+    right: 0;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.arrow {
+    font-size: 12px;
+    margin-left: 5px; /* Adds spacing between the username and arrow */
+}
+
+
+.content {
+    overflow: scroll;
+    margin-left: 220px;
+    margin-top: 100px;
+    border: 2px solid #d3d3d3b4; /* Add a slightly grey border */
+    border-radius: 10px; /* Optional: Add rounded corners */
+    margin-top:81px;
+    border-width: 18px;
+    margin-left: 202px;
+    padding: 20px;
+    background-color: rgba(249, 249, 249, 0.5); /* Transparent background color */
+    min-height: 100vh;
+    /* background-image: url("https://cdn.prod.website-files.com/6448bf6f064020ce1b2ca19d/6448bf6f0640205ee72ca5ad_shawayo%20odd%20pages%20(24).png"); */
+    background-size: cover; /* Ensure the image covers the entire container */
+    background-position: center; /* Center the image */
+}
+
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card i {
+    font-size: 40px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.card h2 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.card p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #555;
+}
+/* Container for the machine details */
+/* General Styling */
+
+
+.container {
+    width: 80%;
+    margin-top: 100px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styling */
+form {
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    color: #555;
+}
+
+input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Table Styling */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    
+    overflow: hidden; /* Prevents content overflow */
+}
+
+.table-container {
+    max-height: 500px; /* Adjust height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    margin-top: 20px;
+    border: 1px solid #ddd; /* Optional: adds a border around the scroll area */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e9ecef;
+}
+.close{
+    margin-left:770px
+}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Control Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='control_panel.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <div class="support-number">
+            <span>&#128222;</span> Tech Support Number: +91 8588870242
+        </div>
+        
+        <div class="username">
+            {% if session.get('username') %}
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    {{ session['username'] }} <span class="arrow">&#9660;</span>
+                </button>
+                <div class="dropdown-content" id="dropdown-menu">
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        
+        
+        
+    </div>
+    
+    
+    
+    
+    <div class="sidebar">
+       <div class="logo">
+
+        <a href="{{ url_for('home') }}">
+            <img src="https://media.licdn.com/dms/image/v2/C560BAQHs471rMnnh1w/company-logo_200_200/company-logo_200_200/0/1630647941955/sseltd_logo?e=2147483647&v=beta&t=-pjLExeOAb9mot-c7W-4cd4OpBriA7gqLBs8svfNrn4" alt="Logo" class="logo-image">
+        </a>
+   
+       </div>
+        
+          
+        <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+        <a href="{{ url_for('machines') }}"><i class="fas fa-cogs"></i> Machines</a>
+        <a href="{{ url_for('control_panel') }}"><i class="fas fa-tools"></i> Control Panel</a>
+    </div>
+
+    <div class="content">
+        <h1>Machine Control Panel</h1>
+        <div class="control-container">
+            <!-- Buttons Section -->
+            <div class="control-buttons">
+                <button class="control-btn start"><i class="fas fa-play"></i> Start</button>
+                <button class="control-btn stop"><i class="fas fa-stop"></i> Stop</button>
+                <button class="control-btn reset"><i class="fas fa-sync-alt"></i> Reset</button>
+            </div>
+
+            <!-- Status Indicators -->
+            <div class="indicators">
+                <div class="indicator">
+                    <div class="light red"></div>
+                    <p>Stopped</p>
+                </div>
+                <div class="indicator">
+                    <div class="light green"></div>
+                    <p>Running</p>
+                </div>
+                <div class="indicator">
+                    <div class="light yellow"></div>
+                    <p>Idle</p>
+                </div>
+            </div>
+
+            <!-- Status Display -->
+            <div class="status-display">
+                <div class="status-item">
+                    <label>RPM:</label>
+                    <span>1200</span>
+                </div>
+                <div class="status-item">
+                    <label>Temperature:</label>
+                    <span>45°C</span>
+                </div>
+                <div class="status-item">
+                    <label>No. of Turns:</label>
+                    <span>150</span>
+                </div>
+            </div>
+
+            <!-- Graphs Section -->
+            <div class="graphs">
+                <div class="graph-item">
+                    <h3>RPM Over Time</h3>
+                    <canvas id="rpmChart"></canvas>
+                </div>
+                <div class="graph-item">
+                    <h3>Temperature Over Time</h3>
+                    <canvas id="tempChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Chart.js Graph for RPM
+        const rpmCtx = document.getElementById('rpmChart').getContext('2d');
+        const rpmChart = new Chart(rpmCtx, {
+            type: 'line',
+            data: {
+                labels: ['1s', '2s', '3s', '4s', '5s'],
+                datasets: [{
+                    label: 'RPM',
+                    data: [1000, 1200, 1300, 1250, 1400],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        // Chart.js Graph for Temperature
+        const tempCtx = document.getElementById('tempChart').getContext('2d');
+        const tempChart = new Chart(tempCtx, {
+            type: 'line',
+            data: {
+                labels: ['1s', '2s', '3s', '4s', '5s'],
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [40, 42, 43, 45, 46],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown-menu');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        }
+    
+        // Optional: Close the dropdown when clicking outside of it
+        window.addEventListener('click', function (e) {
+            const dropdown = document.getElementById('dropdown-menu');
+            const button = document.querySelector('.dropdown-btn');
+            if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
